@@ -1,0 +1,69 @@
+<div class="chat-container">
+  <!-- Header Section with User Info -->
+  <div class="chat-header">
+    <div class="user-info-bar">
+      <div class="logged-in-user">
+        <span class="user-icon">👤</span>
+        <span class="user-text">Logged in as: <strong>{{ currentUser?.username }}</strong></span>
+      </div>
+      <button class="logout-button" (click)="logout()">Log Out</button>
+    </div>
+
+    <div class="ticket-info">
+      <h2 class="ticket-subject">{{ ticket.subject }}</h2>
+      <span class="ticket-status status-open">Open</span>
+    </div>
+    
+    <div class="reservation-summary">
+      <div class="reservation-label">Reservation Details:</div>
+      <div class="reservation-details">
+        <span class="vehicle">🚗 {{ reservation.vehicleLabel }}</span>
+        <span class="dates">
+          📅 {{ formatReservationDate(reservation.startDateTime) }} → 
+          {{ formatReservationDate(reservation.endDateTime) }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages Section -->
+  <div class="messages-container">
+    @for (message of messages; track message.id) {
+      <div class="message" 
+           [class.own-message]="isOwnMessage(message)" 
+           [class.other-message]="!isOwnMessage(message)">
+        <div class="message-header">
+          <span class="sender-name">{{ message.senderUsername }}</span>
+          <span class="message-time">{{ formatDateTime(message.timestamp) }}</span>
+        </div>
+        <div class="message-body">{{ message.content }}</div>
+      </div>
+    }
+    
+    @if (messages.length === 0) {
+      <div class="no-messages">No messages yet. Start the conversation!</div>
+    }
+  </div>
+
+  <!-- Input Section -->
+  <div class="input-container">
+    <textarea
+      class="message-input"
+      [(ngModel)]="newMessageText"
+      placeholder="Type your message here..."
+      [disabled]="isInputDisabled"
+      (keydown.enter)="$event.preventDefault(); sendMessage()"
+      rows="3"
+    ></textarea>
+    <button 
+      class="send-button" 
+      (click)="sendMessage()" 
+      [disabled]="isInputDisabled || !newMessageText.trim()">
+      @if (isSending) {
+        Sending...
+      } @else {
+        Send
+      }
+    </button>
+  </div>
+</div>
