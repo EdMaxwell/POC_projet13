@@ -1,68 +1,63 @@
-# SupportChatPoc
+# SupportChatPoC
 
-This is a proof-of-concept for a multi-user support chat application built with Angular. The PoC demonstrates real-time conversation between two users using browser tabs, without requiring a backend server.
+Proof of Concept (PoC) for the **YourCarYourWay** project: a **multi-user support chat** built with Angular.
+This PoC demonstrates **real-time messaging between two users** using browser tabs, **without any backend**.
+
+> Goal: validate the feasibility of a future **customer support real-time channel** (chat) before integrating it with the final architecture (API, database, security).
+
+---
+
+## Project Context (YourCarYourWay)
+
+This PoC is part of the global architecture work for **YourCarYourWay – New customer web application**:
+- centralized web app for car rental customers
+- support channels: asynchronous tickets + real-time chat/visio
+- international-ready (language, date/currency formats, timezones)
+- payments handled by an external payment provider (tokenization / PCI-DSS)
+
+**This repository focuses only on the support real-time chat PoC.**
+
+---
 
 ## Features
 
-- **Fake Login System**: Simple authentication that works with any username/password
-- **Multi-User Chat**: Multiple users can chat in the same conversation
-- **Real-Time Sync**: Messages sync instantly across browser tabs using localStorage
-- **No Backend Required**: Fully client-side implementation
-- **Persistent State**: User sessions and messages persist across page refreshes
+- **Fake Login System**: simple authentication that accepts any username/password (demo-only)
+- **Multi-User Chat**: multiple users can chat in the same conversation
+- **Real-Time Sync**: messages sync instantly across browser tabs using `localStorage`
+- **No Backend Required**: fully client-side implementation
+- **Persistent State**: user sessions and messages persist across page refreshes
+
+---
+
+## What This PoC Validates
+
+- Multi-user chat behavior (multiple tabs/windows)
+- Real-time synchronization strategy (browser storage events)
+- Simple UX flow for demo (login → chat)
+- Basic persistence across refresh (client-side only)
+
+---
+
+## Limitations (Expected)
+
+This is **not** a production-ready implementation.
+
+- **No real authentication / authorization**
+- **No backend / database**
+- **No encryption at rest, no server-side audit logs**
+- **Not compliant by itself for production usage**
+- Real implementation will be handled by the target architecture:
+  - Angular front-end
+  - Spring Boot REST API
+  - SQL database
+  - security & compliance rules (RGPD, PSD2/SCA, PCI-DSS scope reduction via tokenization)
+
+---
 
 ## Quick Start
 
 ### Development server
 
-To start a local development server, run:
-
 ```bash
 npm install
 npm start
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`.
-
-### Demo: Two-User Chat
-
-1. Open `http://localhost:4200` in your browser
-2. Log in with any username (e.g., "alice")
-3. Open a new tab/window at `http://localhost:4200`
-4. Log in with a different username (e.g., "bob")
-5. Start chatting - messages will appear in both windows in real-time!
-
-## Building
-
-To build the project run:
-
-```bash
-npm run build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-npm test
-```
-
-For headless testing (useful for CI/CD):
-
-```bash
-npm test -- --watch=false --browsers=ChromeHeadless
-```
-
-## Technology Stack
-
-- **Angular 19** - Frontend framework
-- **TypeScript** - Type-safe JavaScript
-- **localStorage** - Client-side data persistence
-- **Storage Events** - Cross-tab communication
-- **Jasmine/Karma** - Testing framework
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
